@@ -15,11 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/about', function () {
+Route::get('about', function () {
     return view('about');
 });
 
-Route::get('/contact', function () {
+Route::get('contact', function () {
     return view('contact');
 });
 
@@ -27,9 +27,11 @@ Route::get('user/{id}', function($id) {
 	return view('users.data', [ 'id' => $id]);
 });
 
-Route::get('/there', function () {
+Route::get('there', function () {
     return 'I dont know much...';
 });
+
+Route::get('todo', 'ToDoController@getAllToDoListObjects');
 
 /*
 redirects go here, have fun

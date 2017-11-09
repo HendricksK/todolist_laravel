@@ -15,16 +15,22 @@ class ToDoController extends Controller
     public function getAllToDoListObjects() {
         $toDoListObjects = DB::table('todo_list')->get();
 
-        return view('todolist.index', ['todolist' => $toDoListObjects]);
+        return ['todolist' => $toDoListObjects];
     }
 
     public function getAllToDoListObjectsForUser($id) {
         $toDoListUser = DB::table('todo_user')
-            ->select('username')
+            ->select('id','username')
             ->where('id', '=', $id)->get();
-            
+
         $toDoListObjects = DB::table('todo_list')->where('user_id', '=', $id)->get();
 
         return view('todolist.index', ['username' => $toDoListUser, 'todolist' => $toDoListObjects]);
+    }
+
+    public function getAllToDoListObjectsForUserXHR($id) {
+        $toDoListObjects = DB::table('todo_list')->where('user_id', '=', $id)->get();
+
+        return ['todolist' => $toDoListObjects];
     }
 }

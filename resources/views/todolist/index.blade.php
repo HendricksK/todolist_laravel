@@ -2,6 +2,7 @@
 <html lang="{{ app()->getLocale() }}">
     @include('includes.head')
     <body>
+        <input type="text" name="user_id" hidden value="{{ $username[0]->id }}">
         <div class="container">
             <h1>To Do List:
                 @if (sizeof($username) != 0)       

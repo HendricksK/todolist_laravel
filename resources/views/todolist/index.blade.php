@@ -10,7 +10,7 @@
                 @endif
             </h1>
         </div>
-        <div class="container">           
+        <div class="container" id="to-do-list-items-container">           
             <table class="u-full-width">
                 <thead>
                     <tr>
@@ -18,19 +18,19 @@
                         <th>Complete</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="to-do-list-table-body">
                 @foreach ($todolist as $toDoObject)
                     <tr>
                         <td>{{ $toDoObject->description }}</td>
                         <td>
                         @if ($toDoObject->complete === 1)
                             <label class="switch">
-                                <input type="checkbox" checked>
+                                <input id="to-do-list-item-{{ $toDoObject->id }}" type="checkbox" onclick="setToDoItemStatus({{ $toDoObject->id }})" checked>
                                 <span class="slider round"></span>
                             </label>
                         @else
                             <label class="switch">
-                                <input type="checkbox">
+                                <input id="to-do-list-item-{{ $toDoObject->id }}" type="checkbox" onclick="setToDoItemStatus({{ $toDoObject->id }})">
                                 <span class="slider round"></span>
                             </label>
                         @endif

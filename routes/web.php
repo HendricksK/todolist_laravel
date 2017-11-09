@@ -32,6 +32,7 @@ Route::get('there', function () {
 });
 
 Route::get('todo', 'ToDoController@getAllToDoListObjects');
+Route::get('todo/{id}', 'ToDoController@getAllToDoListObjectsForUser');
 
 /*
 redirects go here, have fun

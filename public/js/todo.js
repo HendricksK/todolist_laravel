@@ -20,14 +20,24 @@ function getAllToDoItems() {
 
 	xhr.onload = function() {
 	    if (xhr.status === 200 && xhr.readyState === 4) {
+
 	    	var toDoList = JSON.parse(xhr.responseText)
 	    	var toDoListDom = '';
 	    	
 	    	for(var x = 0; x < toDoList.length; x++) {
+	    		
+	    		if(toDoList[x].title === null) {
+	    			toDoList[x].title = '';
+	    		}
+
 	    		if(toDoList[x].complete === 1) {
-	    			toDoListDom = toDoListDom + '<tr><td>' + toDoList[x].description + '</td><td><label class="switch"><input id="to-do-list-item-' + toDoList[x].id + '" type="checkbox" onclick="setToDoItemStatus(' + toDoList[x].id + ')" checked><span class="slider round"></span></label></td>';	
+	    			toDoListDom = toDoListDom + '<tr><td>' + toDoList[x].title + '</td><td>' 
+	    				+ toDoList[x].description + '</td><td><label class="switch"><input id="to-do-list-item-' + toDoList[x].id 
+	    				+ '" type="checkbox" data-name="' + toDoList[x].description + '" onclick="setToDoItemStatus(' + toDoList[x].id + ')" checked><span class="slider round"></span></label></td><td><a class="button" href="#">Edit</a></td>';	
 	    		} else {
-	    			toDoListDom = toDoListDom + '<tr><td>' + toDoList[x].description + '</td><td><label class="switch"><input id="to-do-list-item-' + toDoList[x].id + '" type="checkbox" onclick="setToDoItemStatus(' + toDoList[x].id + ')"><span class="slider round"></span></label></td>';
+	    			toDoListDom = toDoListDom + '<tr><td>' + toDoList[x].title + '</td><td>' 
+	    			+ toDoList[x].description + '</td><td><label class="switch"><input id="to-do-list-item-' + toDoList[x].id 
+	    			+ '" type="checkbox" data-name="' + toDoList[x].description + '" onclick="setToDoItemStatus(' + toDoList[x].id + ')"><span class="slider round"></span></label></td><td><a class="button" href="#">Edit</a></td>';
 	    		}
 				
 			}
@@ -43,8 +53,7 @@ function getAllToDoItems() {
 
 function setToDoItemStatus(id) {
 	debug(event.target)
-	debug(event.target.checked)
-	debug(id)
+	var itemTitle = event.target.getAttribute('data-name')
 
 	var status = 0
 
@@ -61,6 +70,12 @@ function setToDoItemStatus(id) {
 	    if (xhr.status != 200 ) {
 	    	debug(xhr.status)
 	    } else {
+	    	if(status === 0) {
+	    		alert(itemTitle + 'has been marked as incomplete')
+	    	} else {
+	    		alert(itemTitle + 'has been marked as complete')	
+	    	}
+	    	
 	    	getAllToDoItems()
 	    }
 	}
@@ -68,19 +83,37 @@ function setToDoItemStatus(id) {
 
 }
 
-// var description = document.getElementById('new-todo-item').value;
-// var id = 1;
-// var postParams = 'id=' +  id + '&description=' + description;
+function createNewTodDoItem(id) {
 
-// xhr = new XMLHttpRequest();
-// xhr.open('POST', getBaseUrl() + 'new-to-do-item');
-// xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	// trying to serialize form here
 
-// xhr.onreadystatechange = function() {
-// if(xhr.status != 200) {
-//     	alert('An error has occured, please try again');
-// 	}
-// 	reloadToDoList();
-// } 
+	var form = document.querySelector('form');
+	// var data = new FormData(form);
+	// var req = new XMLHttpRequest();
+	// req.send(data);
 
-// xhr.send(postParams);
+	debug(event.target)
+	debug(event.target.getAttribute('data-name'))
+
+	var status = 0
+
+	if (event.target.checked) {
+		status = 1
+	}
+
+	var xhr = new XMLHttpRequest()
+	var postParams = 'id=' + id + '&status=' + status
+	// todo/{id}', 'ToDoController@getAllToDoListObjectsForUser
+	xhr.open('POST', '/api/set-to-do-status/' + id +',' + status )
+
+	xhr.onload = function() {
+	    if (xhr.status != 200 ) {
+	    	debug(xhr.status)
+	    } else {
+	    	// debug(event.data.name)
+	    	getAllToDoItems()
+	    }
+	}
+	xhr.send()
+
+}

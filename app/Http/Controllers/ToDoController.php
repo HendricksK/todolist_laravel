@@ -52,4 +52,8 @@ class ToDoController extends Controller
 
         return 'true';
     }
+
+    public function createNewToDoObject($data) {
+
+    }
 }

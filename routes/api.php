@@ -20,3 +20,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('todo/{id}', 'ToDoController@getAllToDoListObjectsForUserXHR');
 // Route::get('todo/{id},{id1}', 'ToDoController@getAllToDoListObjectsForUserXHR');
 Route::post('set-to-do-status/{id},{status}', 'ToDoController@setToDoObjectStatus');
+Route::post('new-to-do-item/{id}', 'ToDoController@setToDoObjectStatus');

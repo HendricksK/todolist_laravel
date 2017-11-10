@@ -2,7 +2,6 @@
 
 	debug("it's the way you walk, the way you talk")
 	debug("all I do is stay up all night, losing sleep over you")
-	// document.getElementById('to-do-list-item').addEventListener('click', setToDoItemStatus);
 
 })()
 
@@ -83,37 +82,25 @@ function setToDoItemStatus(id) {
 
 }
 
-function createNewTodDoItem(id) {
+function createNewTodDoItem(userId) {
+	var formData = document.getElementById('new-to-do-item-form')
 
-	// trying to serialize form here
+    var title = formData.elements['to-do-title'].value
+    var description = formData.elements['to-do-description'].value
 
-	var form = document.querySelector('form');
-	// var data = new FormData(form);
-	// var req = new XMLHttpRequest();
-	// req.send(data);
-
-	debug(event.target)
-	debug(event.target.getAttribute('data-name'))
-
-	var status = 0
-
-	if (event.target.checked) {
-		status = 1
-	}
-
-	var xhr = new XMLHttpRequest()
-	var postParams = 'id=' + id + '&status=' + status
+    var xhr = new XMLHttpRequest()
+	var postParams = 'user_id=' + userId + '&title=' + title + '&description=' + description
 	// todo/{id}', 'ToDoController@getAllToDoListObjectsForUser
-	xhr.open('POST', '/api/set-to-do-status/' + id +',' + status )
+	xhr.open('POST', '/api/new-to-do-item/' + userId +',' + title + ',' + description)
 
 	xhr.onload = function() {
 	    if (xhr.status != 200 ) {
 	    	debug(xhr.status)
 	    } else {
-	    	// debug(event.data.name)
+	    	debug(xhr.responseText)
+	    	alert(title + 'has been created') 
 	    	getAllToDoItems()
 	    }
 	}
 	xhr.send()
-
 }

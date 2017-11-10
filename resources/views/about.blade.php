@@ -20,7 +20,7 @@
                 </div>
 
                 <div class="content">
-                    Figures I'm the bad guy, because I can't learn to trust...
+                    this is just a page to show you who I am and what I am
                 </div>
             </div>
         </div>

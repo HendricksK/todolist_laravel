@@ -26,7 +26,7 @@ class ToDoController extends Controller
         $toDoListObjects = DB::table('todo_list')
             ->where('user_id', '=', $id)->get();
 
-        return view('todolist.index', ['username' => $toDoListUser, 'todolist' => $toDoListObjects]);
+        return view('todolist.index', ['username' => $toDoListUser, 'todolist' => $toDoListObjects, 'user_id' => $id]);
     }
 
     public function getAllToDoListObjectsForUserXHR($id) {
@@ -54,6 +54,6 @@ class ToDoController extends Controller
     }
 
     public function createNewToDoObject($data) {
-
+        return 'tomorrow is another day';
     }
 }

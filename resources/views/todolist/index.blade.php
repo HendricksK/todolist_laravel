@@ -57,44 +57,30 @@
                 <div>Nothing to see here</div>    
             </div>
         @endif
-        
-<!--         <div class="container new-to-do-item">
-            <form>
-                <div class="row">
-                    <div class="twelve columns">
-                        <label for="to-do-title">Item title</label>
-                        <input class="u-full-width" type="text" placeholder="Need to go grocery shopping" id="to-do-title" name="to-do-title">
-                    </div>
-                </div>
-                <label for="to-dp-description">Item description</label>
-                <textarea class="u-full-width" placeholder="1. Need to get some string cheese ..." id="to-dp-description" name="to-do-description"></textarea>
-                <input class="button-primary" type="submit" value="Submit">
-            </form>
-        </div> -->
-        
+
         <div class="modal">
             <div class="modal-inner">
                 <div class="modal-content">
                     <div class="modal-close-icon">
-                        <a href="javascript:void(0)" class="close-modal"><i class="fa fa-times" aria-hidden="true"></i></a>
+                        <a href="#" class="close-modal"><i class="fa fa-times" aria-hidden="true"></i></a>
                     </div>
                     <div class="modal-content-inner">
-                          <form>
-                            <div class="row">
-                                <div class="twelve columns">
-                                    <label for="to-do-title">Item title</label>
-                                    <input class="u-full-width" type="text" placeholder="Need to go grocery shopping" id="to-do-title" name="to-do-title">
+                        @if (sizeof($username) != 0)       
+                            <form action="#" id="new-to-do-item-form">
+                                <div class="row">
+                                    <div class="twelve columns">
+                                        <label for="to-do-title">Item title</label>
+                                        <input class="u-full-width" type="text" placeholder="Need to go grocery shopping" id="to-do-title" name="to-do-title">
+                                    </div>
                                 </div>
-                            </div>
-                            <label for="to-dp-description">Item description</label>
-                            <textarea class="u-full-width" placeholder="1. Need to get some string cheese ..." id="to-dp-description" name="to-do-description"></textarea>
-                            <!-- <input class="button-primary close-modal" type="submit" value="Submit">
-                            <button class="button close-modal">Cancel</button> -->
-                            <div class="twelve columns">
-                                <a href="javascript:void(0)" class="close-modal button">Cancel</a>
-                                <input class="close-modal button-primary" type="submit" value="Submit">
-                            </div>
-                        </form>
+                                <label for="to-dp-description">Item description</label>
+                                <textarea class="u-full-width" placeholder="1. Need to get some string cheese ..." id="to-dp-description" name="to-do-description"></textarea>
+                                <div class="twelve columns">
+                                    <a href="#" class="close-modal button">Cancel</a>
+                                    <input class="close-modal button-primary" type="submit" onclick="createNewTodDoItem({{ $user_id }})" value="Submit">
+                                </div>
+                            </form>
+                        @endif
                     </div>
                 </div>
             </div>

@@ -20,7 +20,7 @@
                 </div>
 
                 <div class="content">
-                    Tell me boy, how in the fuck would you feel, if you could not get me back? 
+                    here lies a contact form
                 </div>
             </div>
         </div>

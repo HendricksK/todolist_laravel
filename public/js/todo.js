@@ -51,7 +51,6 @@ function getAllToDoItems() {
 }
 
 function setToDoItemStatus(id) {
-	debug(event.target)
 	var itemTitle = event.target.getAttribute('data-name')
 
 	var status = 0
@@ -68,21 +67,23 @@ function setToDoItemStatus(id) {
 	xhr.onload = function() {
 	    if (xhr.status != 200 ) {
 	    	debug(xhr.status)
+	    	debug(xhr.responseText)
 	    } else {
 	    	if(status === 0) {
-	    		alert(itemTitle + 'has been marked as incomplete')
+	    		alert(itemTitle + ' has been marked as incomplete')
 	    	} else {
-	    		alert(itemTitle + 'has been marked as complete')	
+	    		alert(itemTitle + ' has been marked as complete')	
 	    	}
 	    	
 	    	getAllToDoItems()
 	    }
 	}
-	xhr.send()
+	xhr.send(postParams)
 
 }
 
 function createNewTodDoItem(userId) {
+
 	var formData = document.getElementById('new-to-do-item-form')
 
     var title = formData.elements['to-do-title'].value
@@ -90,17 +91,17 @@ function createNewTodDoItem(userId) {
 
     var xhr = new XMLHttpRequest()
 	var postParams = 'user_id=' + userId + '&title=' + title + '&description=' + description
-	// todo/{id}', 'ToDoController@getAllToDoListObjectsForUser
+
 	xhr.open('POST', '/api/new-to-do-item/' + userId +',' + title + ',' + description)
 
 	xhr.onload = function() {
 	    if (xhr.status != 200 ) {
 	    	debug(xhr.status)
-	    } else {
 	    	debug(xhr.responseText)
-	    	alert(title + 'has been created') 
+	    } else {
+	    	alert(title + ' has been saved') 
 	    	getAllToDoItems()
 	    }
 	}
-	xhr.send()
+	xhr.send(postParams)
 }

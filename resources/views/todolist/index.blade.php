@@ -22,15 +22,15 @@
                     <tr>
                         <th>Title</th>
                         <th>Description</th>
-                        <th>Complete</th>
+                        <th>Status</th>
                         <th>Edit</th>
                     </tr>
                 </thead>
                 <tbody id="to-do-list-table-body">
                 @foreach ($todolist as $toDoObject)
                     <tr>
-                        <td>{{ $toDoObject->title }}</td>
-                        <td>{{ $toDoObject->description }}</td>
+                        <td class="item-title">{{ $toDoObject->title }}</td>
+                        <td class="item-description">{{ $toDoObject->description }}</td>
                         <td>
                             @if ($toDoObject->complete === 1)
                                 <label class="switch">
@@ -46,6 +46,7 @@
                         </td>
                         <td>
                             <a class="button" href="#">Edit</a>
+                            <a class="button" href="#">Deleted</a>
                         </td>
                     </tr>
                 @endforeach

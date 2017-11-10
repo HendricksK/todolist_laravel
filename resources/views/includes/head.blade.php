@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-    <div class="container u-full-width navigation">
+    <div class="container u-full-width u-max-full-width navigation">
         <div class="container u-max-full-width">
             <div class="row">
                 <div class="two columns">

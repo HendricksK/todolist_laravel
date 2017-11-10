@@ -82,6 +82,38 @@ function setToDoItemStatus(id) {
 
 }
 
+function markAllItoDoItemsToComplete(id) {
+	var itemTitle = event.target.getAttribute('data-name')
+
+	var status = 0
+
+	if (event.target.checked) {
+		status = 1
+	}
+
+	var xhr = new XMLHttpRequest()
+	var postParams = 'id=' + id + '&status=' + status
+	// todo/{id}', 'ToDoController@getAllToDoListObjectsForUser
+	xhr.open('POST', '/api/set-to-do-status/' + id +',' + status )
+
+	xhr.onload = function() {
+	    if (xhr.status != 200 ) {
+	    	debug(xhr.status)
+	    	debug(xhr.responseText)
+	    } else {
+	    	if(status === 0) {
+	    		alert(itemTitle + ' has been marked as incomplete')
+	    	} else {
+	    		alert(itemTitle + ' has been marked as complete')	
+	    	}
+	    	
+	    	getAllToDoItems()
+	    }
+	}
+	xhr.send(postParams)
+
+}
+
 function createNewTodDoItem(userId) {
 
 	var formData = document.getElementById('new-to-do-item-form')

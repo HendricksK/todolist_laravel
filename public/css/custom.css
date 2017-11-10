@@ -216,3 +216,11 @@ input:checked + .slider:before {
 .header-icon {
 	border: none;
 }
+
+.container.to-do-list .item-description {
+	max-width:  20em;
+}
+
+.container.to-do-list .item-title {
+	max-width:  10em;
+}

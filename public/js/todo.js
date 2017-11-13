@@ -30,13 +30,13 @@ function getAllToDoItems() {
 	    		}
 
 	    		if(toDoList[x].complete === 1) {
-	    			toDoListDom = toDoListDom + '<tr><td>' + toDoList[x].title + '</td><td>' 
+	    			toDoListDom = toDoListDom + '<tr><td class="item-title">' + toDoList[x].title + '</td><td class="item-description">' 
 	    				+ toDoList[x].description + '</td><td><label class="switch"><input id="to-do-list-item-' + toDoList[x].id 
-	    				+ '" type="checkbox" data-name="' + toDoList[x].description + '" onclick="setToDoItemStatus(' + toDoList[x].id + ')" checked><span class="slider round"></span></label></td><td><a class="button" href="#">Edit</a></td>';	
+	    				+ '" type="checkbox" data-name="' + toDoList[x].description + '" onclick="setToDoItemStatus(' + toDoList[x].id + ')" checked><span class="slider round"></span></label></td><td><a class="button" href="#">Edit</a><a class="button" href="#">Delete</a></td>';	
 	    		} else {
-	    			toDoListDom = toDoListDom + '<tr><td>' + toDoList[x].title + '</td><td>' 
+	    			toDoListDom = toDoListDom + '<tr><td class="item-title">' + toDoList[x].title + '</td><td class="item-description">' 
 	    			+ toDoList[x].description + '</td><td><label class="switch"><input id="to-do-list-item-' + toDoList[x].id 
-	    			+ '" type="checkbox" data-name="' + toDoList[x].description + '" onclick="setToDoItemStatus(' + toDoList[x].id + ')"><span class="slider round"></span></label></td><td><a class="button" href="#">Edit</a></td>';
+	    			+ '" type="checkbox" data-name="' + toDoList[x].description + '" onclick="setToDoItemStatus(' + toDoList[x].id + ')"><span class="slider round"></span></label></td><td><a class="button" href="#">Edit</a><a class="button" href="#">Delete</a></td>';
 	    		}
 				
 			}
@@ -61,7 +61,7 @@ function setToDoItemStatus(id) {
 
 	var xhr = new XMLHttpRequest()
 	var postParams = 'id=' + id + '&status=' + status
-	// todo/{id}', 'ToDoController@getAllToDoListObjectsForUser
+
 	xhr.open('POST', '/api/set-to-do-status/' + id +',' + status )
 
 	xhr.onload = function() {
@@ -82,31 +82,18 @@ function setToDoItemStatus(id) {
 
 }
 
-function markAllItoDoItemsToComplete(id) {
-	var itemTitle = event.target.getAttribute('data-name')
-
-	var status = 0
-
-	if (event.target.checked) {
-		status = 1
-	}
+function markAllItoDoItemsToComplete(userid) {
 
 	var xhr = new XMLHttpRequest()
-	var postParams = 'id=' + id + '&status=' + status
-	// todo/{id}', 'ToDoController@getAllToDoListObjectsForUser
-	xhr.open('POST', '/api/set-to-do-status/' + id +',' + status )
+	var postParams = 'id=' + userid
+
+	xhr.open('POST', '/api/complete-all-to-do-items/' + userid )
 
 	xhr.onload = function() {
 	    if (xhr.status != 200 ) {
 	    	debug(xhr.status)
 	    	debug(xhr.responseText)
 	    } else {
-	    	if(status === 0) {
-	    		alert(itemTitle + ' has been marked as incomplete')
-	    	} else {
-	    		alert(itemTitle + ' has been marked as complete')	
-	    	}
-	    	
 	    	getAllToDoItems()
 	    }
 	}

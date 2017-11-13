@@ -2,17 +2,20 @@
 <html lang="{{ app()->getLocale() }}">
     @include('includes.head')
     <body>
+         {{ Auth::user()->id }}
         <input type="text" name="user_id" hidden value="{{ $username[0]->id }}">
         <div class="container">
-            <div class="ten columns">
+            <div class="six columns">
                 <h1>To Do List:
                     @if (sizeof($username) != 0)       
                         {{ $username[0]->username }}
                     @endif
                 </h1>
             </div>
-            <div class="two columns">
-                <a class="button open-modal new-to-do-item">New to do...</a>
+            <div class="six columns">
+                <a class="button open-modal new-to-do-item">New to do item</a>
+                <a href="#" onclick="markAllItoDoItemsToComplete({{ $user_id }})" class="button">Mark all items as complete</a>
+                <!-- <input class="button" onclick="markAllItoDoItemsToComplete({{ $user_id }})" value="Mark all items as complete"> -->
             </div>
         </div>
         @if (sizeof($todolist) != 0)
@@ -46,7 +49,7 @@
                         </td>
                         <td>
                             <a class="button" href="#">Edit</a>
-                            <a class="button" href="#">Deleted</a>
+                            <a class="button" href="#">Delete</a>
                         </td>
                     </tr>
                 @endforeach
@@ -68,6 +71,7 @@
                     <div class="modal-content-inner">
                         @if (sizeof($username) != 0)       
                             <form action="#" id="new-to-do-item-form">
+                                {{ csrf_field() }}
                                 <div class="row">
                                     <div class="twelve columns">
                                         <label for="to-do-title">Item title</label>

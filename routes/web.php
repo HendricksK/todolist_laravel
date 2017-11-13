@@ -48,3 +48,11 @@ Route::prefix('admin')->group(function () {
         return 'This is a prefix, with a group';
     });
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

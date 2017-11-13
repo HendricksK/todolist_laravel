@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class ToDoController extends Controller
 {
@@ -13,8 +14,8 @@ class ToDoController extends Controller
      */
     public function getAllToDoListObjects() {
         $toDoListObjects = DB::table('todo_list')->get();
-
-        return ['todolist' => $toDoListObjects];
+        $user = Auth::user();
+        return ['todolist' => $toDoListObjects, 'user' => $user];
     }
 
     /**
@@ -27,7 +28,9 @@ class ToDoController extends Controller
 
             $toDoListUser = DB::table('todo_user')
                 ->select('id','username')
-                ->where('id', '=', $id)->get();
+                ->where('id', '=', $id)
+                ->orderBy('id','desc')
+                ->get();
 
             $toDoListObjects = DB::table('todo_list')
                 ->where('user_id', '=', $id)->get();
@@ -77,7 +80,6 @@ class ToDoController extends Controller
      *                      whether its worked or not]
      */
     public function createNewToDoObjectXHR($id, $title, $description) {
-        // return $data;
         try {
             $id = DB::table('todo_list')
             ->insertGetID([
@@ -92,5 +94,23 @@ class ToDoController extends Controller
         } catch (Exception $e) {
             return json_encode($e);
         }
+    }
+
+    /**
+     * [markAllToDoAsComplete marks all the todo items
+     * as complete for specified user]
+     * @param  [type] $id [user id]
+     * @return [type]     [returns json string]
+     */
+    public function markAllToDoAsCompleteXHR($id) {
+        try {
+            DB::table('todo_list')
+            ->where('user_id', $id)
+            ->update(['complete' => '1']);  
+        } catch (Exception $e) {
+            return json_encode($e);
+        }
+
+        return 'true';
     }
 }

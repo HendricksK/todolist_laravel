@@ -14,8 +14,7 @@ class ToDoController extends Controller
      */
     public function getAllToDoListObjects() {
         $toDoListObjects = DB::table('todo_list')->get();
-        $user = Auth::user();
-        return ['todolist' => $toDoListObjects, 'user' => $user];
+        return ['todolist' => $toDoListObjects];
     }
 
     /**
@@ -40,7 +39,7 @@ class ToDoController extends Controller
             return $e;
         }
 
-        return view('todolist.index', ['username' => $toDoListUser, 'todolist' => $toDoListObjects, 'user_id' => $id]);
+        return view('todolist.index', ['username' => $toDoListUser, 'todolist' => $toDoListObjects, 'user_id' => Auth::user()->id]);
     }
 
     /**

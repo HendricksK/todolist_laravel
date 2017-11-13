@@ -19,7 +19,9 @@
                     <a class="button header-icon" href="/"><span class="icon-list2"></span></a>
                 </div>
                 <div class="ten columns">
-                    <a class="button" href="/todo/1">To do</a>
+                    @if(Auth::user())
+                        <a class="button" href="/todo/{{Auth::user()->id}}">{{Auth::user()->username}}To do</a>
+                    @endif
                     <a class="button" href="/contact">Contact</a>
                     <a class="button" href="/about">About</a>
                 </div>

@@ -2,7 +2,9 @@
 <html lang="{{ app()->getLocale() }}">
     @include('includes.head')
     <body>
-         {{ Auth::user()->id }}
+        @if (! $user_id)
+            Please login to view your to do list...
+        @endif
         <input type="text" name="user_id" hidden value="{{ $username[0]->id }}">
         <div class="container">
             <div class="six columns">
